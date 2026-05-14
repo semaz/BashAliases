@@ -42,8 +42,6 @@ sshrc.sh.dist                # template for sshrc.sh
 | `....` | `cd ../../..` |
 | `.....` | `cd ../../../..` |
 | `cdl` | `cd` + `ll` |
-| `mkdir` | `mkdir -pv` |
-| `mcd` | make dir and cd into it |
 
 #### Files
 
@@ -55,7 +53,6 @@ sshrc.sh.dist                # template for sshrc.sh
 | `fixEol` | strip Windows line endings (`\r`) |
 | `tf` | `tail -f` |
 | `numFiles` | count files in current dir |
-| `rmrf` | `rm -rf` |
 | `size` | folder size (`du -sh`) |
 | `sizer` | recursive folder sizes |
 | `disks` | available disk space |
