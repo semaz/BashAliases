@@ -1,86 +1,192 @@
-# Bash aliases #
+# Bash aliases
 
-A list of useful bash aliases.
+A collection of useful bash/zsh aliases and helper functions for the terminal.
 
-## Install ##
+## Install
 
-1. `git clone git@github.com:semaz/BashAliases.git ~/BashAliases`
-2. `cd && bash BashAliases/install.sh`
+```
+git clone git@github.com:semaz/BashAliases.git ~/BashAliases
+```
 
-## Wiki ##
+```
+cd ~/BashAliases && bash install.sh
+```
 
-Description of all settings.
+## Structure
 
-### Aliases ###
+```
+autoload.sh                  # entry point — sources all scripts/*.sh
+install.sh                   # adds autoload.sh to ~/.zshrc / ~/.bashrc
+scripts/
+  1.term.sh                  # PATH, colors, PS1, EDITOR, helper functions
+  2.functions.sh             # aliases: ls, grep, ps, php/composer
+  3.filesystem.sh            # aliases: find, extract, cd shortcuts, disk utils
+  4.ssh.sh                   # ssh wrapper — injects sshrc.sh on remote host
+  5.network.sh               # network utils
+  6.platform.macos.sh        # macOS only
+  6.platform.linux.sh        # Linux only
+sshrc.sh.dist                # template for sshrc.sh
+```
 
-#### functions ####
+## Aliases
 
-`c` - clear<br>
-`g` - git<br>
-`l.` - list of hidden files<br>
-`ll` - list of all files<br>
-`lsd` - list only directories<br>
-`root`,`sudo` - sudo -i<br>
-`ps2` - 'ps -ef | grep -v $$ | grep -i '<br>
-`psg` - 'ps aux | grep -v grep | grep -i -e VSZ -e'<br>
-`psme` - 'ps -ef | grep $USER --color=always '<br>
-`hg` - history|grep<br>
-`diff` - colordiff<br>
-`composer` - 'php /usr/local/bin/composer'<br>
+### Universal
 
+#### Navigation
 
-#### file ####
+| Alias | Command |
+|-------|---------|
+| `~` | `cd ~` |
+| `..` / `cd..` | `cd ..` |
+| `...` | `cd ../..` |
+| `....` | `cd ../../..` |
+| `.....` | `cd ../../../..` |
+| `cdl` | `cd` + `ll` |
+| `mkdir` | `mkdir -pv` |
+| `mcd` | make dir and cd into it |
 
-`f` - find file by name<br>
-`edit` - 'open -e'<br>
-`numFiles` - print number of files<br>
-`~` - 'cd ~'<br>
-`cd..` - 'cd ..'<br>
-`..` - 'cd ..'<br>
-`...` - 'cd ../../'<br>
-`....` - 'cd ../../../'<br>
-`.....` - 'cd ../../../../'<br>
-`cdl` - go to folder and ls<br>
-`cdla` - go to folder and ls -la<br>
-`finderHiddenShow` - OSX Finder show hidden files<br>
-`finderHiddenHide` - OSX Finder hide hidden files<br>
-`mkdir` - 'mkdir -pv'<br>
-`rmdir` - 'rm -rf'<br>
-`mcd` - make dir and go to that dir<br>
-`cleanupDS` - remove all .DS_Store<br>
-`extract` - extract archive<br>
+#### Files
 
-#### log ####
+| Alias | Command |
+|-------|---------|
+| `f` | find file by name in current dir |
+| `ft` | find files containing text |
+| `extract` | extract any archive (tar, zip, gz, bz2, 7z, rar…) |
+| `fixEol` | strip Windows line endings (`\r`) |
+| `tf` | `tail -f` |
+| `numFiles` | count files in current dir |
+| `rmrf` | `rm -rf` |
+| `size` | folder size (`du -sh`) |
+| `sizer` | recursive folder sizes |
+| `disks` | available disk space |
+| `dirspace` | sizes of all subdirs, sorted |
 
-`tf` - run tail -f<br>
+#### Listing
 
-#### network ####
+| Alias | Command |
+|-------|---------|
+| `ls` | `ls` with color |
+| `ll` | `ls -lha` |
+| `l.` | list hidden files only |
+| `lsd` | list directories only |
 
-`flushDNS` - flush OS X DNS<br>
-`myip` - print yours ip-adress<br>
-`trace` - mtr<br>
-`openPorts` - print all open ports<br>
-`edithosts` - 'sudo nano /etc/hosts'<br>
+#### Search
 
-#### apt ####
+| Alias | Command |
+|-------|---------|
+| `grep` / `egrep` / `fgrep` | grep with color |
+| `hg` | `history | grep` |
 
-`apt` - 'sudo apt-get'<br>
-`update` - 'sudo apt-get update  --yes'<br>
-`upgrade` - 'sudo apt-get upgrade'<br>
-`install` - 'sudo apt-get install --yes'<br>
-`purge` - 'sudo apt-get purge --yes'<br>
-`remove` - 'sudo apt-get remove --yes'<br>
-`distup` - 'sudo apt-get dist-upgrade'<br>
-`updinst` - 'sudo apt-get update && sudo apt-get install --yes'<br>
-`aptsearch` - 'apt-cache search'<br>
+#### Processes
 
-### Vars ###
+| Alias | Command |
+|-------|---------|
+| `ps2` | `ps -ef` filtered by keyword |
+| `psg` | `ps aux` filtered by keyword |
+| `psme` | processes of current user |
 
-`export PATH=/usr/local/bin:$PATH`<br>
-`force_color_prompt=yes`<br>
-`export LS_OPTIONS='--color=auto'`<br>
-`export CLICOLOR=1`<br>
-`export TERM="xterm-color"`<br>
-`export PS1='\[\e[38;5;228;1m\]\u\[\e[39m\]@\[\e[38;5;70m\]\H\[\e[0m\]:\[\e[38;5;27;1m\]\w \[\e[0m\]'`<br>
-`export EDITOR=/usr/bin/nano`<br>
-`USER="`id -un`"`<br>
+#### PHP / Composer
+
+| Alias | Command |
+|-------|---------|
+| `cmp` | `composer` |
+| `cmpin` | `composer install` |
+| `cmpup` | `composer update -W` |
+| `cmpdu` | `composer dump-autoload` |
+| `sf` | `php bin/console` |
+| `cept` | `php vendor/bin/codecept` |
+| `phinx` | `php vendor/bin/phinx` |
+
+#### Network
+
+| Alias | Command |
+|-------|---------|
+| `myip` | print external IP |
+| `edithosts` | edit `/etc/hosts` in `$EDITOR` |
+| `trace` | `mtr` (if installed) |
+
+#### Other
+
+| Alias | Command |
+|-------|---------|
+| `c` | `clear` |
+| `g` | `git` |
+
+---
+
+### macOS only
+
+| Alias | Command |
+|-------|---------|
+| `edit` | open file in TextEdit |
+| `flushDNS` | flush DNS cache |
+| `finderHiddenShow` | show hidden files in Finder |
+| `finderHiddenHide` | hide hidden files in Finder |
+| `rmDS` | remove all `.DS_Store` recursively |
+| `rmZoneIdentifier` | remove all `Zone.Identifier` files recursively |
+
+---
+
+### Linux only
+
+| Alias | Command |
+|-------|---------|
+| `apt` | `sudo apt` |
+| `aptall` | update + upgrade + autoremove |
+| `openPorts` | show all open ports (`ss -tulnp`) |
+
+---
+
+## SSH config injection
+
+`4.ssh.sh` wraps the `ssh` command: on connect it injects `sshrc.sh` into the
+remote session via base64. Create `sshrc.sh` manually or copy the template:
+
+```
+cp sshrc.sh.dist sshrc.sh
+```
+
+The file is gitignored — customize it freely.
+
+`sshrc.sh` receives `$SSHRC_HOST` (the target hostname) so you can `cd` to the
+right directory automatically per host using `_cd_by_host`.
+
+### @include directives
+
+`sshrc.sh` supports `# @include <path>` directives to pull in local script files
+before injection. Paths are relative to the project root:
+
+```bash
+# @include scripts/1.term.sh
+# @include scripts/2.functions.sh
+# @include scripts/3.filesystem.sh
+```
+
+`_sshrc_resolve()` in `4.ssh.sh` expands includes recursively, strips comments
+and blank lines, then base64-encodes the result for SSH transport. This keeps
+`sshrc.sh` concise while reusing the same helper functions available locally.
+
+---
+
+## motd
+
+`motd()` is defined in `scripts/1.term.sh` and displays a system info panel on
+SSH login. Call it at the end of `sshrc.sh` to show it on connect.
+
+**What it shows:**
+
+| Row | Source |
+|-----|--------|
+| Hostname + user + OS | `hostname`, `id -un`, `/etc/os-release` |
+| Date / time | `date` |
+| Uptime | `/proc/uptime` → formatted as `3d 4h 12m` |
+| Load average | `/proc/loadavg` — each value colored green/yellow/red relative to CPU count |
+| Memory / Swap | `free -m` — progress bar + percentage + human size |
+| Disk | `df /` — progress bar + percentage + free/total |
+| IP address | `hostname -I` |
+| Logged-in users | `who` — unique count + names |
+| Systemd services | `systemctl list-units --failed` |
+
+Progress bars use `▓` (filled) and `░` (empty). Color thresholds: green < 75%, yellow 75–89%, red ≥ 90%. At red threshold the label and percentage are also highlighted.
+
+The separator line width adapts to the terminal width via `tput cols`.

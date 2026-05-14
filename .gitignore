@@ -2,3 +2,7 @@
 *.DS_Store
 Icon
 ._*
+
+CLAUDE.md
+
+sshrc.sh
