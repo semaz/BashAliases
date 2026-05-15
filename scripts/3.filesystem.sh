@@ -47,7 +47,6 @@ rmFileRecursively() {
 alias size='du -sh'                             # get folder size
 alias sizer='du -h -c'                          # get and print folder size for all folders, recursively
 alias disks='df -H -l'                          # show available disk space
-alias dirspace='du -ah --max-depth=1 | sort -hr -T .'
 
 # cd
 alias ~='cd ~'

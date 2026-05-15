@@ -2,7 +2,7 @@
 
 SCRIPTS_PATH="$( cd "$( dirname "${BASH_SOURCE[0]:-${(%):-%x}}" )" && pwd )"
 
-source "$SCRIPTS_PATH/scripts/2.functions.sh"
+source "$SCRIPTS_PATH/scripts/1.term.sh"
 
 if grep -q "$SCRIPTS_PATH/autoload.sh" ~/"$(get_config_path)";
 then
