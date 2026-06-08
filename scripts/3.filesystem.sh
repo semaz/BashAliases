@@ -44,8 +44,12 @@ rmFileRecursively() {
   find ./ -name "*$1*" -print0 | xargs -0 -I {} /bin/rm -rf "{}"
 }
 
-alias size='du -sh'                             # get folder size
-alias sizer='du -h -c'                          # get and print folder size for all folders, recursively
+# Size of each file/folder at the current level only (incl. hidden), largest first.
+# find avoids shell glob differences between bash and zsh; du -sh gives per-item total.
+alias size='find . -mindepth 1 -maxdepth 1 -exec du -sh {} + 2>/dev/null | sort -rh'
+# Same, but recursive — every file/folder at any depth, largest first.
+alias sizer='du -ah . 2>/dev/null | sort -rh'
+
 alias disks='df -H -l'                          # show available disk space
 
 # cd
